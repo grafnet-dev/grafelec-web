@@ -79,10 +79,7 @@ export default function Navigation() {
 
           {/* User Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/cart" className="text-gray-700 hover:text-[#1459a6] transition-colors">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Panier</span>
-            </Link>
+            
             <Button variant="outline" className="border-[#1459a6] text-[#1459a6] hover:bg-[#1459a6] hover:text-white">
               <User className="h-4 w-4 mr-2" />
               Se connecter
@@ -124,14 +121,7 @@ export default function Navigation() {
                 )
               })}
               <div className="flex items-center justify-between pt-4">
-                <Link
-                  href="/cart"
-                  className="text-gray-700 hover:text-[#1459a6] transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  <span className="sr-only">Panier</span>
-                </Link>
+               
                 <Button
                   variant="outline"
                   className="border-[#1459a6] text-[#1459a6] hover:bg-[#1459a6] hover:text-white"
