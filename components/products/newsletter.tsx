@@ -15,7 +15,7 @@ export default function Newsletter() {
             placeholder="Votre adresse email"
             className="bg-white/10 text-white placeholder:text-white/60 border-white/20"
           />
-          <Button className="bg-white text-[#1459a6] hover:bg-white/90">S'inscrire</Button>
+          <Button className="bg-white text-[#1459a6] hover:bg-white/90">  {"S'inscrire"}</Button>
         </div>
       </div>
     </section>

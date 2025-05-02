@@ -1,9 +1,30 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { ChevronDown } from "lucide-react"
+
 
 export default function CategoryShowcase() {
-  const featuredCategories = ["Énergie Renouvelable", "Smart Building", "Sécurité", "Réseaux"]
+  const featuredCategories = [
+    {
+      name: "Énergie Renouvelable",
+      image: "/renouvelable.png", // Chemin vers votre image d'énergie renouvelable
+      description: "Découvrez notre gamme de produits"
+    },
+    {
+      name: "Smart Building",
+      image: "/batiment.jpg", // Chemin vers votre image de smart building
+      description: "Découvrez notre gamme de produits"
+    },
+    {
+      name: "Sécurité",
+      image: "/secure.jpg", // Chemin vers votre image de sécurité
+      description: "Découvrez notre gamme de produits"
+    },
+    {
+      name: "Réseaux",
+      image: "/reseau.jpg", // Chemin vers votre image de réseaux
+      description: "Découvrez notre gamme de produits"
+    }
+  ]
   
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -21,7 +42,7 @@ export default function CategoryShowcase() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredCategories.map((category) => (
             <motion.div
-              key={category}
+              key={category.name}
               variants={fadeIn}
               initial="hidden"
               whileInView="visible"
@@ -30,18 +51,16 @@ export default function CategoryShowcase() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10" />
               <Image
-                src="/placeholder.svg?height=400&width=300"
-                alt={category}
+                src={category.image}
+                alt={category.name}
                 width={300}
                 height={400}
                 className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                <h3 className="text-xl font-bold text-white mb-2">{category}</h3>
-                <p className="text-white/80 text-sm mb-4">Découvrez notre gamme de produits</p>
-                <button className="text-white font-medium flex items-center text-sm group-hover:underline">
-                  Explorer <ChevronDown className="h-4 w-4 ml-1 rotate-270" />
-                </button>
+                <h3 className="text-xl font-bold text-white mb-2">{category.name}</h3>
+                <p className="text-white/80 text-sm mb-4">{category.description}</p>
+               
               </div>
             </motion.div>
           ))}

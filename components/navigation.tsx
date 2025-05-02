@@ -4,8 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
-import { ShoppingCart, User, Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from 'next/image';
 const navItems = [
@@ -15,6 +14,7 @@ const navItems = [
   { name: "Partenaires", href: "/partners" },
   { name: "Blog", href: "/blog" },
   { name: "Boutique", href: "/shop" },
+  { name: "Carrieres", href: "/careers" },
   { name: "Contact", href: "/contact" },
 ]
 
@@ -41,11 +41,14 @@ export default function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center">
-        <img
-            src="/logo5.png" 
+          <Image
+            src="/logo5.png"
             alt="Grafelec Logo"
-            className="h-15 w-auto" 
-        />
+            width={100} 
+            height={60} 
+            className="h-15 w-auto"
+            priority 
+          />
         </Link>
 
           {/* Desktop Navigation */}
@@ -78,13 +81,7 @@ export default function Navigation() {
           </nav>
 
           {/* User Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            
-            <Button variant="outline" className="border-[#1459a6] text-[#1459a6] hover:bg-[#1459a6] hover:text-white">
-              <User className="h-4 w-4 mr-2" />
-              Se connecter
-            </Button>
-          </div>
+         
 
           {/* Mobile Menu Button */}
           <button
@@ -120,17 +117,7 @@ export default function Navigation() {
                   </Link>
                 )
               })}
-              <div className="flex items-center justify-between pt-4">
-               
-                <Button
-                  variant="outline"
-                  className="border-[#1459a6] text-[#1459a6] hover:bg-[#1459a6] hover:text-white"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <User className="h-4 w-4 mr-2" />
-                  Se connecter
-                </Button>
-              </div>
+              
             </nav>
           </motion.div>
         )}

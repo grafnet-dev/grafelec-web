@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from "react"
 import { products } from "@/lib/data/products"
@@ -7,6 +7,8 @@ import SearchSort from "@/components/products/search-sort"
 import ProductGrid from "@/components/products/product-grid"
 import CategoryShowcase from "@/components/products/category-showcase"
 import Newsletter from "@/components/products/newsletter"
+import Image from "next/image"
+import TawkToChat from "@/components/TawkToChat" // Importer le composant TawkToChat
 
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState("Tous les produits")
@@ -38,13 +40,28 @@ export default function ProductsPage() {
 
   return (
     <div className="pt-20">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#1459a5] to-[#1459a6] text-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+      {/* Ajouter le composant TawkToChat */}
+      <TawkToChat />
+      
+      {/* Hero Section with Background Image */}
+      <section className="relative py-50">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="/electrical-tools.jpg" 
+            alt="Hero background" 
+            fill 
+            className="object-cover brightness-50" 
+            priority
+          />
+        </div>
+        
+        {/* Content overlaid on the image */}
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl mx-auto text-center text-white">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Nos Produits</h1>
             <p className="text-xl">
-              Découvrez notre sélection d'équipements et de solutions technologiques de haute qualité.
+              Découvrez notre sélection {"d'équipements"} et de solutions technologiques de haute qualité.
             </p>
           </div>
         </div>

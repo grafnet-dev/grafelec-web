@@ -14,8 +14,7 @@ interface ProductFiltersProps {
 export function ProductFilters({
   selectedCategory,
   setSelectedCategory,
-  searchQuery,
-  setSearchQuery,
+  
 }: ProductFiltersProps) {
   return (
     <>

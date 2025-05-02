@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react"
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -11,11 +12,14 @@ export default function Footer() {
           {/* Company Info */}
           <div>
           <div className="mb-5" >
-                <img
-                src="/logo5.png" 
-                alt="Grafelec Logo"
-                className="h-12 w-auto" 
-            />
+                 <Image
+                            src="/logo5.png"
+                            alt="Grafelec Logo"
+                            width={100} 
+                            height={60} 
+                            className="h-15 w-auto"
+                            priority 
+                          />
             </div>
             <p className="text-gray-300 mb-4">
               Solutions innovantes dans les domaines électriques, électroniques et technologiques.
@@ -46,7 +50,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-                  À propos
+                  A propos
                 </Link>
               </li>
               <li>

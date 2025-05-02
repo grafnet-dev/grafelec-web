@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link";
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -66,7 +67,7 @@ const services = [
 const offices = [
   {
     city: "Houeyiho",
-    address: "123 Avenue de la Technologie, 75000 Paris",
+    address: "Avenue Houeyiho",
     phone: "+33 1 23 45 67 89",
     email: "contact@grafelecsarl.com",
     image: "/placeholder.svg?height=300&width=400",
@@ -75,7 +76,7 @@ const offices = [
   },
   {
     city: "Ste Rita",
-    address: "456 Rue de l'Innovation, 69000 Lyon",
+    address: "Avenue Ste Rita",
     phone: "+33 4 56 78 90 12",
     email: "contact@grafnetsarl.com",
     image: "/placeholder.svg?height=300&width=400",
@@ -145,7 +146,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20">
+      <section className="py-20" id="form-devis">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Form */}
@@ -332,10 +333,12 @@ export default function ContactPage() {
               <div className="bg-gradient-to-r from-[#1459a5] to-[#1459a6] rounded-2xl p-8 text-white">
                 <div className="flex items-center mb-6">
                   <MessageSquare className="h-8 w-8 mr-4" />
-                  <h3 className="text-2xl font-bold">Besoin d'une assistance rapide ?</h3>
+                  <h3 className="text-2xl font-bold">
+                  {"Besoin d'une assistance rapide ?"}
+                     </h3>
                 </div>
-                <p className="mb-6">
-                  Notre équipe de support technique est disponible pour répondre à vos questions urgentes.
+                <p className="mb-6">    
+                  {"Notre équipe de support technique est disponible pour répondre à vos questions urgentes."}
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <Button variant="outline" className="border-white text-white hover:bg-white hover:text-[#1459a6]">
@@ -357,7 +360,7 @@ export default function ContactPage() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl font-bold mb-4 text-[#1459a6]">Nos Bureaux</h2>
             <p className="text-gray-600">
-              Retrouvez-nous dans nos différentes agences en France pour discuter de vos projets.
+              {"Retrouvez-nous dans nos différentes agences en France pour discuter de vos projets."}
             </p>
           </div>
 
@@ -438,7 +441,8 @@ export default function ContactPage() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl font-bold mb-4 text-[#1459a6]">Questions Fréquentes</h2>
             <p className="text-gray-600">
-              Retrouvez les réponses aux questions les plus fréquemment posées par nos clients.
+              
+              {"Retrouvez les réponses aux questions les plus fréquemment posées par nos clients."}
             </p>
           </div>
 
@@ -452,8 +456,8 @@ export default function ContactPage() {
             >
               <h3 className="text-xl font-bold mb-3 text-[#1459a6]">Comment demander un devis ?</h3>
               <p className="text-gray-600">
-                Vous pouvez demander un devis en remplissant notre formulaire de contact, en nous appelant directement
-                ou en nous envoyant un email avec les détails de votre projet.
+                
+                {"Vous pouvez demander un devis en remplissant notre formulaire de contact, en nous appelant directement ou en nous envoyant un email avec les détails de votre projet."}
               </p>
             </motion.div>
 
@@ -464,10 +468,11 @@ export default function ContactPage() {
               viewport={{ once: true }}
               className="bg-white p-6 rounded-lg shadow-md"
             >
-              <h3 className="text-xl font-bold mb-3 text-[#1459a6]">Quels sont vos délais d'intervention ?</h3>
+              <h3 className="text-xl font-bold mb-3 text-[#1459a6]">{"Quels sont vos délais d'intervention ?"}</h3>
               <p className="text-gray-600">
-                Nos délais d'intervention varient selon la nature et l'ampleur du projet. Pour une intervention urgente,
-                nous proposons un service prioritaire sous 24 à 48 heures.
+               
+                {"Nos délais d'intervention varient selon la nature et l'ampleur du projet."}
+                {"Pour une intervention urgente, nous proposons un service prioritaire sous 24 à 48 heures."}
               </p>
             </motion.div>
 
@@ -507,16 +512,25 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Prêt à démarrer votre projet ?</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Contactez-nous dès aujourd'hui pour discuter de vos besoins et découvrir comment nos solutions peuvent vous
+            Contactez-nous dès {"aujourd'hui"} pour discuter de vos besoins et découvrir comment nos solutions peuvent vous
             aider.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-[#be321d] hover:bg-[#be321d]/90 text-white">
+       
+            <Button size="lg" className="bg-[#be321d] hover:bg-[#be321d]/90 text-white"
+            onClick={() => {
+              const element = document.getElementById("form-devis")
+              element?.scrollIntoView({ behavior: "smooth" })
+            }}
+            >
               Demander un devis
             </Button>
+            
+            <Link href="/services">
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-[#1459a6]">
-              Découvrir nos services
+              Découvrir nos services 
             </Button>
+            </Link>
           </div>
         </div>
       </section>
