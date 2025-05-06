@@ -4,9 +4,10 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Menu, X, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from 'next/image';
+import { Button } from "@/components/ui/button"
 const navItems = [
   { name: "Accueil", href: "/" },
   { name: "A propos", href: "/about" },
@@ -81,7 +82,14 @@ export default function Navigation() {
           </nav>
 
           {/* User Actions */}
-         
+          {/* User Actions */}
+          <div className="hidden md:flex items-center ">
+           
+            <Button variant="outline" className="border-[#1459a6] text-[#1459a6] hover:bg-[#1459a6] hover:text-white">
+              <User className="h-4 w-4 mr-2" />
+              Se connecter
+            </Button>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -117,7 +125,17 @@ export default function Navigation() {
                   </Link>
                 )
               })}
-              
+              <div >
+               
+                <Button
+                  variant="outline"
+                  className="border-[#1459a6] text-[#1459a6] hover:bg-[#1459a6] hover:text-white"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <User className="h-4 w-4 mr-2" />
+                  Se connecter
+                </Button>
+              </div>
             </nav>
           </motion.div>
         )}
