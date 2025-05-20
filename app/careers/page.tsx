@@ -343,43 +343,43 @@ export default function CareersPage() {
       </section>
 
       {/* Why Join Us Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold mb-4 text-[#1459a6]">Pourquoi Nous Rejoindre ?</h2>
-            <p className="text-gray-600">
-            
-              {"Chez Grafelec, nous valorisons le talent, l'innovation et le bien-être de nos collaborateurs."}
-              {"Découvrez ce qui fait de nous un employeur de choix."}
+     <section className="py-20">
+  <div className="container mx-auto px-4">
+    {/* Titre et description */}
+    <div className="text-center max-w-3xl mx-auto mb-12 px-4 sm:px-6 lg:px-8">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#1459a6]">
+        Pourquoi Nous Rejoindre ?
+      </h2>
+      <p className="text-gray-600 text-base sm:text-lg">
+        Chez Grafelec, nous valorisons le talent, l'innovation et le bien-être de nos collaborateurs.
+        Découvrez ce qui fait de nous un employeur de choix.
+      </p>
+    </div>
 
-            </p>
-          </div>
+    {/* Grille des avantages */}
+    <div ref={benefitsRef}>
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={benefitsInView ? "visible" : "hidden"}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-0"
+      >
+        {benefits.map((benefit, index) => (
+          <motion.div
+            key={index}
+            variants={fadeIn}
+            className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+          >
+            <div className="mb-4 text-3xl text-[#1459a6]">{benefit.icon}</div>
+            <h3 className="text-lg sm:text-xl font-semibold mb-2 text-[#1459a6]">{benefit.title}</h3>
+            <p className="text-gray-600 text-sm sm:text-base">{benefit.description}</p>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  </div>
+</section>
 
-          <div >
-            
-            <div ref={benefitsRef}>
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                animate={benefitsInView ? "visible" : "hidden"}
-                className="grid grid-cols-2 gap-6"
-              >
-                {benefits.map((benefit, index) => (
-                  <motion.div
-                    key={index}
-                    variants={fadeIn}
-                    className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-                  >
-                    <div className="mb-4">{benefit.icon}</div>
-                    <h3 className="text-xl font-semibold mb-2 text-[#1459a6]">{benefit.title}</h3>
-                    <p className="text-gray-600">{benefit.description}</p>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Job Openings Section */}
       <section id="job-openings" className="py-20 bg-gray-50">
@@ -394,7 +394,7 @@ export default function CareersPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <Input
                 type="text"
-                placeholder="Rechercher par poste, département ou lieu..."
+                placeholder="Rechercher par poste"
                 className="pl-10"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -580,87 +580,87 @@ export default function CareersPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold mb-4 text-[#1459a6]">Ce Que Disent Nos Employés</h2>
-            <p className="text-gray-600">
-             
-              {" Découvrez les témoignages de nos collaborateurs sur leur expérience au sein de Grafelec."}
-              
-            </p>
-          </div>
+    <section className="py-20 bg-gray-50">
+  <div className="container mx-auto px-4">
+    <div className="text-center max-w-3xl mx-auto mb-12 px-4 sm:px-6 lg:px-8">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#1459a6]">
+        Ce Que Disent Nos Employés
+      </h2>
+      <p className="text-gray-600 text-base sm:text-lg">
+        Découvrez les témoignages de nos collaborateurs sur leur expérience au sein de Grafelec.
+      </p>
+    </div>
 
-          <div ref={testimonialsRef} className="relative max-w-4xl mx-auto">
-            <div className="overflow-hidden">
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                animate={testimonialsInView ? "visible" : "hidden"}
-                className="flex flex-col items-center"
-              >
-                {testimonials.map((testimonial, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{
-                      opacity: activeTestimonial === index ? 1 : 0,
-                      x: activeTestimonial === index ? 0 : 100,
-                      position: activeTestimonial === index ? "relative" : "absolute",
-                    }}
-                    transition={{ duration: 0.5 }}
-                    className="w-full"
-                  >
-                    <div className="bg-white rounded-xl shadow-lg p-8 md:p-12">
-                      <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-                        <div className="flex-shrink-0">
-                          <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-[#1459a6]/20">
-                            <Image
-                              src={testimonial.image || "/placeholder.svg"}
-                              alt={testimonial.name}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <svg
-                            className="h-12 w-12 text-[#1459a6]/20 mb-4"
-                            fill="currentColor"
-                            viewBox="0 0 32 32"
-                            aria-hidden="true"
-                          >
-                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                          </svg>
-                          <p className="text-gray-600 italic mb-6 text-lg">{testimonial.quote}</p>
-                          <div>
-                            <h4 className="font-bold text-xl text-[#1459a6]">{testimonial.name}</h4>
-                            <p className="text-gray-600">{testimonial.position}</p>
-                            <p className="text-[#be321d] text-sm mt-1">{testimonial.years}</p>
-                          </div>
-                        </div>
-                      </div>
+    <div ref={testimonialsRef} className="relative max-w-4xl mx-auto px-4 sm:px-0">
+      <div className="overflow-hidden">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={testimonialsInView ? "visible" : "hidden"}
+          className="relative"
+        >
+          {testimonials.map((testimonial, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{
+                opacity: activeTestimonial === index ? 1 : 0,
+                x: activeTestimonial === index ? 0 : 100,
+                position: activeTestimonial === index ? "relative" : "absolute",
+              }}
+              transition={{ duration: 0.5 }}
+              className="w-full"
+            >
+              <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 md:p-12">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+                  <div className="flex-shrink-0">
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-[#1459a6]/20">
+                      <Image
+                        src={testimonial.image || "/placeholder.svg"}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
+                  </div>
+                  <div className="text-center md:text-left">
+                    <svg
+                      className="h-10 w-10 sm:h-12 sm:w-12 text-[#1459a6]/20 mb-4 mx-auto md:mx-0"
+                      fill="currentColor"
+                      viewBox="0 0 32 32"
+                      aria-hidden="true"
+                    >
+                      <path d="..."/>
+                    </svg>
+                    <p className="text-gray-600 italic mb-4 text-base sm:text-lg">
+                      {testimonial.quote}
+                    </p>
+                    <h4 className="font-bold text-lg sm:text-xl text-[#1459a6]">{testimonial.name}</h4>
+                    <p className="text-gray-600 text-sm sm:text-base">{testimonial.position}</p>
+                    <p className="text-[#be321d] text-xs sm:text-sm mt-1">{testimonial.years}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
 
-            <div className="flex justify-center mt-8 space-x-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    activeTestimonial === index ? "bg-[#be321d] w-8" : "bg-gray-300 hover:bg-gray-400"
-                  }`}
-                  aria-label={`Témoignage ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="flex justify-center mt-8 space-x-2">
+        {testimonials.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveTestimonial(index)}
+            className={`h-3 rounded-full transition-all duration-300 ${
+              activeTestimonial === index ? "bg-[#be321d] w-8" : "bg-gray-300 hover:bg-gray-400 w-3"
+            }`}
+            aria-label={`Témoignage ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       
       {/* Application Form Section */}

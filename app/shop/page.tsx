@@ -40,9 +40,9 @@ export default function ProductsPage() {
 
   return (
     <div className="pt-20">
-      {/* Ajouter le composant TawkToChat */}
+      {/* Ajouter le composant TawkToChat
       <TawkToChat />
-      
+       */}
       {/* Hero Section with Background Image */}
       <section className="relative py-50">
         {/* Background Image */}

@@ -1,3 +1,5 @@
+///page d'accueil
+
 "use client";
 
 import { useState, useEffect } from "react";

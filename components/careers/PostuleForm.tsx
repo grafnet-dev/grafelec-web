@@ -194,7 +194,7 @@ export default function ApplicationForm({ jobOpenings }: ApplicationFormProps) {
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Sélectionnez votre niveau d'expérience" />
+                                <SelectValue placeholder="votre niveau d'expérience" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -341,3 +341,4 @@ export default function ApplicationForm({ jobOpenings }: ApplicationFormProps) {
     </section>
   )
 }
+//Niveau

@@ -267,34 +267,35 @@ const testimonials: Testimonial[] = [
 const workProcess: WorkProcess[] = [
   {
     step: 1,
-    title: "Consultation",
+    title: "Conception",
     description: "Nous analysons vos besoins et objectifs pour comprendre parfaitement vos attentes",
     icon: <MessageSquare className="h-8 w-8" />,
   },
   {
     step: 2,
-    title: "Audit & Analyse",
+    title: "Audit",
     description: "Nos experts évaluent votre situation actuelle et identifient les points d'amélioration",
     icon: <CheckCircle className="h-8 w-8" />,
   },
   {
     step: 3,
-    title: "Conception",
+    title: "Implémentation",
     description: "Nous élaborons une solution sur mesure adaptée à vos besoins spécifiques",
     icon: <Cpu className="h-8 w-8" />,
   },
   {
     step: 4,
-    title: "Implémentation",
+    title: "Suivi & Control",
     description: "Nos équipes qualifiées mettent en œuvre la solution avec rigueur et professionnalisme",
     icon: <Server className="h-8 w-8" />,
   },
   {
     step: 5,
-    title: "Suivi & Support",
+    title: "Support",
     description: "Nous assurons un service continu pour garantir la performance optimale de nos solutions",
     icon: <Phone className="h-8 w-8" />,
   },
+  
 ];
 
 // Flatten services for tab navigation
