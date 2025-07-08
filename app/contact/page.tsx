@@ -132,7 +132,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="pt-20">
+    <div className="pt-8">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-[#1459a5] to-[#1459a6] text-white py-20">
         <div className="container mx-auto px-4">

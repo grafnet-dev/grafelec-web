@@ -12,7 +12,7 @@ import { LoginTabContent, loginSchema } from "@/components/auth/LoginTabContent"
 import { RegisterTabContent, registerSchema } from "@/components/auth/RegisterTabContent";
 import { AuthSidebar } from "@/components/auth/AuthSidebar";
 import { BackgroundPattern } from "@/components/auth/BackgroundPattern";
-
+import { ReturnButton } from "@/components/return-button";
 export default function LoginPage() {
   const [activeTab, setActiveTab] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +24,7 @@ export default function LoginPage() {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
+      
     },
   });
 
@@ -36,7 +36,7 @@ export default function LoginPage() {
       email: "",
       password: "",
       confirmPassword: "",
-      terms: false,
+     
     },
   });
 
@@ -68,7 +68,9 @@ export default function LoginPage() {
   };
 
   return (
+    
     <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 to-gray-100">
+      
       <BackgroundPattern />
 
       {/* Container principal avec ombre unique */}

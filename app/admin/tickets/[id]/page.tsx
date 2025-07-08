@@ -12,10 +12,10 @@ export default function AdminTicketDetailPage({ params }: { params: { id: string
           <Button variant="outline" size="icon" asChild>
             <Link href="/admin/tickets">
               <ChevronLeft className="h-4 w-4" />
-              <span className="sr-only">Back</span>
+              <span className="sr-only">Retour</span>
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold tracking-tight">Ticket Details</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Détails des tickets</h1>
         </div>
 
         <TicketDetail isAdmin={true} />

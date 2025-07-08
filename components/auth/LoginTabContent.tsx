@@ -7,6 +7,9 @@ import { signIn } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { APIError } from "better-auth/api";
+import { ErrorCode } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -74,7 +77,7 @@ export function LoginTabContent({
         },
         onError: (context) => {
           console.error("Erreur de connexion:", context.error);
-          toast.error(context.error.message || "Erreur lors de la connexion");
+          handleError(context.error);
           setIsLoading(false);
         },
         onSuccess: () => {
@@ -93,13 +96,40 @@ export function LoginTabContent({
       }
       
     } catch (error: any) {
-      console.error("Erreur lors de l'inscription:", error);
-      toast.error(error.message || "Une erreur s'est produite lors de l'inscription");
+      console.error("Erreur lors de la connexion:", error);
+      handleError(error);
       setIsLoading(false);
     }
   };
+  // Fonction utilitaire pour gérer les erreurs
+  const handleError = (error: any) => {
+    if (error instanceof APIError) {
+      const errCode = error.body ? (error.body.code as ErrorCode) : "UNKNOWN";
+      console.dir(error, { depth: 5 });
+      switch (errCode) {
+       case "EMAIL_NOT_VERIFIED":
+           redirect("/auth/verify?error=email_not_verified");
+        default:
+          toast.error(
+            error.message 
+          );
+      }
+    } else {
+      toast.error(error.message);
+    }
+  };
 
-
+/**
+ * const errCode = err.body ? (err.body.code as ErrorCode) : "UNKNOWN";
+       console.dir(err, { depth: 5 });
+       switch (errCode) {
+         case "EMAIL_NOT_VERIFIED":
+           redirect("/auth/verify?error=email_not_verified");
+         default:
+           return { error: err.message };
+       }
+ * 
+ */
   return (
     <motion.div
       key="login"

@@ -5,52 +5,52 @@ import { AlertCircle, CheckCircle, Clock, Ticket } from "lucide-react"
 export default function UserDashboard() {
   return (
     <UserLayout>
-      <div className="space-y-6">
+      <div className="space-y-6 px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
 
         {/* Ticket Stats */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Tickets</CardTitle>
+              <CardTitle className="text-sm font-medium">Tickets Total</CardTitle>
               <Ticket className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-[#024b94]">12</div>
-              <p className="text-xs text-muted-foreground">All tickets submitted</p>
+              <p className="text-xs text-muted-foreground">tickets soumis</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending</CardTitle>
+              <CardTitle className="text-sm font-medium">Attente</CardTitle>
               <Clock className="h-4 w-4 text-[#f59e0b]" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-[#f59e0b]">4</div>
-              <p className="text-xs text-muted-foreground">Awaiting response</p>
+              <p className="text-xs text-muted-foreground">En attente de réponse</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">In Progress</CardTitle>
+              <CardTitle className="text-sm font-medium">En cours</CardTitle>
               <AlertCircle className="h-4 w-4 text-[#3b82f6]" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-[#3b82f6]">5</div>
-              <p className="text-xs text-muted-foreground">Currently being worked on</p>
+              <p className="text-xs text-muted-foreground">Actuellement en cours de réalisation</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Resolved</CardTitle>
+              <CardTitle className="text-sm font-medium">Resolu</CardTitle>
               <CheckCircle className="h-4 w-4 text-[#10b981]" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-[#10b981]">3</div>
-              <p className="text-xs text-muted-foreground">Successfully completed</p>
+              <p className="text-xs text-muted-foreground">Terminé avec succès</p>
             </CardContent>
           </Card>
         </div>
@@ -59,8 +59,8 @@ export default function UserDashboard() {
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="col-span-1">
             <CardHeader>
-              <CardTitle>Recent Notifications</CardTitle>
-              <CardDescription>Stay updated on your ticket status</CardDescription>
+              <CardTitle>Notifications récentes</CardTitle>
+              <CardDescription>Restez informé de l'état de votre ticket</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-start gap-4 rounded-lg border p-3">
@@ -68,9 +68,9 @@ export default function UserDashboard() {
                   <AlertCircle className="h-4 w-4 text-[#024b94]" />
                 </div>
                 <div>
-                  <p className="font-medium">Ticket #1089 status updated</p>
-                  <p className="text-sm text-muted-foreground">Your ticket has been marked as In Progress</p>
-                  <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
+                  <p className="font-medium">Ticket #1089 statut mis à jour</p>
+                  <p className="text-sm text-muted-foreground">Votre ticket a été marqué comme en cours</p>
+                  <p className="text-xs text-muted-foreground mt-1">il y a 2 heures</p>
                 </div>
               </div>
 
@@ -79,9 +79,9 @@ export default function UserDashboard() {
                   <CheckCircle className="h-4 w-4 text-[#10b981]" />
                 </div>
                 <div>
-                  <p className="font-medium">Ticket #1076 resolved</p>
-                  <p className="text-sm text-muted-foreground">Your network access issue has been resolved</p>
-                  <p className="text-xs text-muted-foreground mt-1">Yesterday</p>
+                  <p className="font-medium">Ticket #1076 Resolu</p>
+                  <p className="text-sm text-muted-foreground">Votre problème d'accès au réseau a été résolu</p>
+                  <p className="text-xs text-muted-foreground mt-1">Hier</p>
                 </div>
               </div>
 
@@ -90,9 +90,9 @@ export default function UserDashboard() {
                   <Ticket className="h-4 w-4 text-[#024b94]" />
                 </div>
                 <div>
-                  <p className="font-medium">New comment on Ticket #1082</p>
-                  <p className="text-sm text-muted-foreground">Admin: "We're looking into this issue..."</p>
-                  <p className="text-xs text-muted-foreground mt-1">2 days ago</p>
+                  <p className="font-medium">Nouveau commentaire sur le Ticket #1082</p>
+                  <p className="text-sm text-muted-foreground">Admin: "Nous étudions ce problème..."</p>
+                  <p className="text-xs text-muted-foreground mt-1">il y a 2 heures</p>
                 </div>
               </div>
             </CardContent>
@@ -101,43 +101,43 @@ export default function UserDashboard() {
           {/* Latest Events */}
           <Card className="col-span-1">
             <CardHeader>
-              <CardTitle>Latest Events</CardTitle>
-              <CardDescription>Upcoming events and announcements</CardDescription>
+              <CardTitle>Derniers événements</CardTitle>
+              <CardDescription>Événements et annonces à venir</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-lg border p-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-[#024b94]">System Maintenance</h3>
+                  <h3 className="font-semibold text-[#024b94]">Entretien du système</h3>
                   <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                    Upcoming
+                    Prochainement
                   </span>
                 </div>
                 <p className="text-sm mt-2">
-                  Scheduled maintenance on May 25, 2025. System may be unavailable from 2-4 AM.
+                  Maintenance programmée le 25 mai 2025. Le système peut être indisponible de 2 h à 4 h du matin.
                 </p>
-                <p className="text-xs text-muted-foreground mt-2">Posted by Admin • May 19, 2025</p>
+                <p className="text-xs text-muted-foreground mt-2">Publié par Admin • 19 mai 2025</p>
               </div>
 
               <div className="rounded-lg border p-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-[#024b94]">New Feature Release</h3>
+                  <h3 className="font-semibold text-[#024b94]">Nouvelle version de fonctionnalité</h3>
                   <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full dark:bg-green-900 dark:text-green-200">
-                    Announcement
+                    Annonce
                   </span>
                 </div>
-                <p className="text-sm mt-2">We've added new file attachment capabilities to the ticket system.</p>
-                <p className="text-xs text-muted-foreground mt-2">Posted by Admin • May 15, 2025</p>
+                <p className="text-sm mt-2">Nous avons ajouté de nouvelles fonctionnalités de pièces jointes au système de tickets.</p>
+                <p className="text-xs text-muted-foreground mt-2">Publié par Admin • 15 mai 2025</p>
               </div>
 
               <div className="rounded-lg border p-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-[#024b94]">IT Department Town Hall</h3>
+                  <h3 className="font-semibold text-[#024b94]">Formation Microsoft</h3>
                   <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full dark:bg-purple-900 dark:text-purple-200">
-                    Event
+                    Evènement
                   </span>
                 </div>
-                <p className="text-sm mt-2">Join us for a virtual town hall meeting on June 1, 2025 at 10:00 AM.</p>
-                <p className="text-xs text-muted-foreground mt-2">Posted by Admin • May 10, 2025</p>
+                <p className="text-sm mt-2">Rejoignez-nous pour une assemblée virtuelle le 1er juin 2025 à 10h00.</p>
+                <p className="text-xs text-muted-foreground mt-2">Publié par Admin • 10 mai 2025</p>
               </div>
             </CardContent>
           </Card>

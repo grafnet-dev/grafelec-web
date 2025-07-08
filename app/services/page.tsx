@@ -343,7 +343,7 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="pt-16 overflow-hidden">
+    <div className="pt-8 overflow-hidden">
       {/* Hero Section avec animation */}
       <motion.section 
         initial={{ opacity: 0 }}

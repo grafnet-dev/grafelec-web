@@ -39,7 +39,7 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="pt-20">
+    <div className="pt-8">
       {/* Ajouter le composant TawkToChat
       <TawkToChat />
        */}

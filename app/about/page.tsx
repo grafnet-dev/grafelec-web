@@ -8,7 +8,7 @@ import TeamSection from "@/components/about/TeamSection";
 
 export default function AboutPage() {
   return (
-    <div className="pt-20">
+    <div className="pt-8">
       {/* Hero Section with Background Image */}
       <section className="relative py-50">
         {/* Background Image */}

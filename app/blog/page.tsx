@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export default function BlogPage() {
   return (
-    <div className="pt-20">
+    <div className="pt-8">
     {/* Hero Section with Background Image */}
               <section className="relative py-50 ">
                 {/* Background Image */}

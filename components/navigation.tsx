@@ -3,12 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User, Globe, ChevronDown } from "lucide-react";
+import { Menu, X, User, Globe, ChevronDown, ShoppingCart, UserCircle, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import { useSession, signOut } from "@/lib/auth-client"
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import {
   Select,
   SelectContent,
@@ -38,11 +39,25 @@ const mainNavItems = [
 
 export default function Navigation() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState("fr");
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const mobileNavRef = useRef<HTMLDivElement>(null);
+  const { data: session, isPending} = useSession()
+
+  // Menu profil utilisateur basé sur le rôle
+  const getProfileMenuItems = () => {
+    const dashboardHref = session?.user?.role === "ADMIN" ? "/admin/dashboard" : "/user/dashboard";
+    
+    return [
+      { name: "Faire les achats", href: "/shop", icon: ShoppingCart },
+      { name: "Mon espace", href: dashboardHref, icon: UserCircle },
+    ];
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,6 +70,7 @@ export default function Navigation() {
   useEffect(() => {
     // Fermer les sous-menus lorsque le pathname change
     setActiveSubmenu(null);
+    setProfileMenuOpen(false);
   }, [pathname]);
 
   const handleLanguageChange = (value: string) => {
@@ -74,7 +90,35 @@ export default function Navigation() {
     setActiveSubmenu(activeSubmenu === name ? null : name);
   };
 
-  return (
+  const toggleProfileMenu = () => {
+    setProfileMenuOpen(!profileMenuOpen);
+  };
+
+  // Fonction pour gérer la déconnexion
+  const handleSignOut = async () => {
+    await signOut({
+      fetchOptions: {
+        onRequest: () => {
+          setIsSigningOut(true);
+        },
+        onResponse: () => {
+          setIsSigningOut(false);
+        },
+        onError: (context) => {  
+          toast.error(context.error.message || "Erreur lors de la déconnexion");
+        },
+        onSuccess: () => {
+          toast.success("Vous êtes déconnecté!");
+          setProfileMenuOpen(false);
+          setMobileMenuOpen(false);
+          router.push("/");
+        },
+      },
+    });
+  };
+
+if (!isPending){
+   return (
     <>
       <header
         className={cn(
@@ -103,7 +147,7 @@ export default function Navigation() {
               {/* Espace vide pour mobile */}
               <div className="md:hidden"></div>
 
-              {/* Actions à droite : Carrières et Se connecter */}
+              {/* Actions à droite : Carrières et Se connecter/Profil */}
               <div className="flex items-center space-x-4">
                 {/* Lien Carrières */}
                 <Link
@@ -119,16 +163,73 @@ export default function Navigation() {
                 {/* Séparateur vertical */}
                 <div className="hidden md:block h-5 w-px bg-gray-300"></div>
 
-                {/* Bouton de connexion */}
-                <Link href="/login">
-                  <Button
-                    variant="outline"
-                    className="hidden md:flex h-9 text-sm border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-800"
-                  >
-                    <User className="h-4 w-4 mr-2" />
-                    <span className="notranslate">Se connecter</span>
-                  </Button>
-                </Link>
+                {/* Bouton de connexion ou Menu profil */}
+                {session ? (
+                  // Menu profil pour utilisateur connecté
+                  <div className="relative">
+                    <button
+                      onClick={toggleProfileMenu}
+                      className="hidden md:flex items-center h-9 px-3 text-sm border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors"
+                    >
+                      <User className="h-4 w-4 mr-2" />
+                      <span className="notranslate">Profil</span>
+                      <ChevronDown className={cn(
+                        "ml-1 h-4 w-4 transition-transform duration-200",
+                        profileMenuOpen ? "rotate-180" : ""
+                      )} />
+                    </button>
+
+                    {/* Menu déroulant profil desktop */}
+                    <AnimatePresence>
+                      {profileMenuOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute right-0 mt-2 bg-white shadow-md rounded-md py-2 w-48 z-50"
+                        >
+                          {getProfileMenuItems().map((item) => {
+                            const Icon = item.icon;
+                            return (
+                              <Link
+                                key={item.name}
+                                href={item.href}
+                                className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                                onClick={() => setProfileMenuOpen(false)}
+                              >
+                                <Icon className="h-4 w-4 mr-3" />
+                                <span className="notranslate">{item.name}</span>
+                              </Link>
+                            );
+                          })}
+                          {/* Bouton de déconnexion */}
+                          <button
+                            onClick={handleSignOut}
+                            disabled={isSigningOut}
+                            className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            <LogOut className="h-4 w-4 mr-3" />
+                            <span className="notranslate">
+                              {isSigningOut ? "Déconnexion..." : "Déconnexion"}
+                            </span>
+                          </button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  // Bouton de connexion pour utilisateur non connecté
+                  <Link href="/login">
+                    <Button
+                      variant="outline"
+                      className="hidden md:flex h-9 text-sm border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                    >
+                      <User className="h-4 w-4 mr-2" />
+                      <span className="notranslate">Se connecter</span>
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -367,18 +468,53 @@ export default function Navigation() {
                   {/* Ligne de séparation */}
                   <div className="h-px bg-gray-200 my-2"></div>
 
-                  {/* Bouton de connexion mobile */}
+                  {/* Section profil/connexion mobile */}
                   <div className="px-4 py-4">
-                    <Link href="/login">
-                      <Button
-                        className="w-full"
-                        variant="default"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <User className="h-4 w-4 mr-2" />
-                        <span className="notranslate">Se connecter</span>
-                      </Button>
-                    </Link>
+                    {session ? (
+                      // Menu profil mobile pour utilisateur connecté
+                      <div className="space-y-2">
+                        <div className="text-sm font-medium text-gray-700 mb-3">
+                          <span className="notranslate">Mon compte</span>
+                        </div>
+                        {getProfileMenuItems().map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <Link
+                              key={item.name}
+                              href={item.href}
+                              className="flex items-center w-full px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              <Icon className="h-4 w-4 mr-3" />
+                              <span className="notranslate">{item.name}</span>
+                            </Link>
+                          );
+                        })}
+                        {/* Bouton de déconnexion mobile */}
+                        <button
+                          onClick={handleSignOut}
+                          disabled={isSigningOut}
+                          className="flex items-center w-full px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <LogOut className="h-4 w-4 mr-3" />
+                          <span className="notranslate">
+                            {isSigningOut ? "Déconnexion..." : "Déconnexion"}
+                          </span>
+                        </button>
+                      </div>
+                    ) : (
+                      // Bouton de connexion mobile pour utilisateur non connecté
+                      <Link href="/login">
+                        <Button
+                          className="w-full"
+                          variant="default"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <User className="h-4 w-4 mr-2" />
+                          <span className="notranslate">Se connecter</span>
+                        </Button>
+                      </Link>
+                    )}
                   </div>
                 </nav>
               </motion.div>
@@ -390,4 +526,6 @@ export default function Navigation() {
       <div className="h-[104px] md:h-[112px]"></div>
     </>
   );
+}
+ 
 }

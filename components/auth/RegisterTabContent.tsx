@@ -16,12 +16,16 @@ import * as z from "zod";
 import { SocialAuthButtons } from "./SocialAuthButtons";
 import { AuthDivider } from "./AuthDivider";
 import { signUp } from "@/lib/auth-client";
+import { APIError } from "better-auth/api";
+import { ErrorCode } from "@/lib/auth";
 import { toast } from "sonner";
 import { useState } from "react";
 
 export const registerSchema = z
   .object({
-    name: z.string().min(2, { message: "Le nom doit contenir au moins 2 caractères" }),
+    name: z
+      .string()
+      .min(2, { message: "Le nom doit contenir au moins 2 caractères" }),
     email: z.string().email({ message: "Adresse email invalide" }),
     password: z.string().min(8, {
       message: "Le mot de passe doit contenir au moins 8 caractères",
@@ -53,7 +57,7 @@ export function RegisterTabContent({
   fadeIn,
 }: RegisterTabContentProps) {
   const [isLoading, setIsLoading] = useState(false);
-
+  /*
   const handleSubmit = async (values: z.infer<typeof registerSchema>) => {
     setIsLoading(true);
     
@@ -99,7 +103,73 @@ export function RegisterTabContent({
       setIsLoading(false);
     }
   };
+*/
+  const handleSubmit = async (values: z.infer<typeof registerSchema>) => {
+    setIsLoading(true);
 
+    try {
+      // Préparer les données pour l'envoi (sans confirmPassword)
+      const registrationData = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      };
+
+      console.log("Données d'inscription envoyées:", registrationData);
+
+      // Utiliser directement signUp.email
+      const result = await signUp.email(registrationData, {
+        onRequest: () => {
+          console.log("Début de la requête d'inscription");
+        },
+        onResponse: () => {
+          console.log("Réponse reçue");
+        },
+        onError: (context) => {
+          console.error("Erreur d'inscription:", context.error);
+          handleError(context.error);
+          setIsLoading(false);
+        },
+        onSuccess: () => {
+          console.log("Inscription réussie");
+          toast.success(
+            "Compte créé avec succès ! Vérifiez votre email pour confirmer votre compte."
+          );
+          form.reset();
+          onSubmit(values);
+          setIsLoading(false);
+        },
+      });
+
+      // Vérification additionnelle du résultat
+      if (result && result.error) {
+        throw result.error;
+      }
+    } catch (error: any) {
+      console.error("Erreur lors de l'inscription:", error);
+      handleError(error);
+      setIsLoading(false);
+    }
+  };
+
+  // Fonction utilitaire pour gérer les erreurs
+  const handleError = (error: any) => {
+    if (error instanceof APIError) {
+      const errCode = error.body ? (error.body.code as ErrorCode) : "UNKNOWN";
+
+      switch (errCode) {
+        case "USER_ALREADY_EXISTS":
+          toast.error("Un compte avec cette adresse email existe déjà.");
+          break;
+        default:
+          toast.error(
+            error.message || "Une erreur s'est produite lors de l'inscription"
+          );
+      }
+    } else {
+      toast.error(error.message || "Une erreur inattendue s'est produite");
+    }
+  };
   return (
     <motion.div
       key="register"

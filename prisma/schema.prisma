@@ -11,8 +11,128 @@ datasource db {
 }
 
 
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketCategory {
+  HARDWARE
+  SOFTWARE
+  NETWORK
+  ACCOUNT
+  OTHER
+}
+
+enum TicketUrgency {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model Ticket {
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  title       String
+  description String
+  category    TicketCategory
+  urgency     TicketUrgency
+  status      TicketStatus  @default(OPEN)
+
+  // Pièces jointes (URLs des fichiers uploadés)
+  attachments String[]
+
+  // Relations
+  authorId    String
+  author      User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  // Assignation optionnelle à un admin
+  assigneeId  String?
+  assignee    User?         @relation("TicketAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  // Commentaires/réponses
+  comments    TicketComment[]
+
+  @@map("tickets")
+}
+
+model TicketComment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  content   String
+  isInternal Boolean @default(false) // Pour distinguer les commentaires internes des réponses publiques
+
+  // Relations
+  ticketId  String
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("ticket_comments")
+}
+
+enum EventStatus {
+  UPCOMING
+  ONGOING
+  FINISHED
+}
+
+
+model Event {
+  id          String       @id @default(uuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  title       String
+  description String
+  startDate   DateTime?
+  endDate     DateTime?
+  image       String?
+
+  status      EventStatus  @default(UPCOMING)
+
+  authorId    String
+  author      User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("events")
+}
+
+
+model Article {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title     String
+  keywords  String[]
+  url       String
+  summary   String?
+  image     String?
+
+  // Relation à User
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("articles")
+}
+
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
 model User {
-  id            String    @id
+  id            String    @id @default(uuid())
   createdAt     DateTime
   updatedAt     DateTime
 
@@ -20,16 +140,23 @@ model User {
   email         String    @unique
   emailVerified Boolean
   image         String?
-  
+  role          UserRole  @default(USER)
+
   sessions      Session[]
   accounts      Account[]
+  events        Event[]
+  articles      Article[]
+  
+  // Relations pour les tickets
+  tickets       Ticket[]  
+  assignedTickets Ticket[] @relation("TicketAssignee") 
+  ticketComments TicketComment[] 
 
- 
   @@map("users")
 }
 
 model Session {
-  id        String   @id
+  id        String   @id @default(uuid())
   createdAt DateTime
   updatedAt DateTime
 
@@ -46,7 +173,7 @@ model Session {
 }
 
 model Account {
-  id                    String    @id
+  id                    String    @id @default(uuid())
   createdAt             DateTime
   updatedAt             DateTime
 
@@ -67,7 +194,7 @@ model Account {
 }
 
 model Verification {
-  id         String    @id
+  id         String    @id @default(uuid())
   createdAt  DateTime?
   updatedAt  DateTime?
 

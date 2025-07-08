@@ -13,7 +13,7 @@ export default function PartnersPage() {
   const featuredPartners = partners.filter((partner) => partner.featured)
 
   return (
-    <div className="pt-20">
+    <div className="pt-8">
      {/* Hero Section with Background Image */}
           <section className="relative py-50 ">
             {/* Background Image */}
