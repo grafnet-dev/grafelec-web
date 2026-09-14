@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Image indisponible</title>
+  <desc id="desc">Placeholder Grafelec</desc>
+  <rect width="800" height="600" fill="#eaf2fb"/>
+  <path d="M160 470l150-170 105 115 75-85 150 140H160z" fill="#1459a6" opacity=".75"/>
+  <circle cx="530" cy="205" r="48" fill="#be321d" opacity=".8"/>
+  <text x="400" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#1459a6">Grafelec</text>
+</svg>

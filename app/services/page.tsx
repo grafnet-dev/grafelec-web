@@ -177,7 +177,7 @@ const serviceCategories: ServiceCategory[] = [
           "Analyse de données IoT",
           "Intégration de systèmes",
         ],
-        image: "panneau.jpg",
+        image: "/panneau.jpg",
       },
       {
         id: "renewable",

@@ -10,7 +10,7 @@ export const teamMembers = [
       name: "M. Mohamed SAKA",
       role: "Directeur des Systèmes d'Information",
       description: "Chargé de superviser les systèmes d'information, les données et l'infrastructure technologique.",
-      image: "/images/team/marie-lambert.jpg"
+      image: "/equipe.png"
     },
     {
       name: "M. Abdoulhakam TABA",
